@@ -6,9 +6,10 @@ export function shipFactory(length) {
     isSunk: function() {
       if (this.hits === this.length) {
         this.sunk = true;
-      } else {
-        
-      }
+      }      
+    },
+    hit: function() {
+      this.hits += 1;
     }
   }
 }
