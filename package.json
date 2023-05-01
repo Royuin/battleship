@@ -1,0 +1,15 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "A game that allows you to play battleship against the computer.",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Royuin",
+  "license": "ISC",
+  "keywords": [],
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
