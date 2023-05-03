@@ -50,19 +50,19 @@ export function gameboardFactory() {
 
     addShip: function (x, y, x2, y2) {
       if (x !== x2 && y !== y2) {
-        throw new Error('Invalid Coordinates Soldier');
+        throw new Error('Invalid Coordinates Soldier!');
       }
-      const carrier = shipFactory(5);
+     const carrier = shipFactory(5)
       if (x === x2) {
-        for (let i = y -1; i <= y2; i += 1 ) {
+        for (let i = y-1 ; i < y2; i += 1 ) {
           this[x][i] = carrier;
         }
       } else {
          const rowArray = this.row;
          const rowIndex1 = rowArray.indexOf(x);
          const rowIndex2 = rowArray.indexOf(x2);
-         
-         for (let i = rowIndex1 - 1; i <= rowIndex2; i += 1) {
+
+         for (let i = rowIndex1; i <= rowIndex2; i += 1) {
           const value = rowArray[i];
           const currentRow = this[value];
           currentRow[y2 - 1] = carrier;
