@@ -53,15 +53,20 @@ export function gameboardFactory() {
         throw new Error('Invalid Coordinates Soldier');
       }
       const carrier = shipFactory(5);
-      const rowArray = this.row;
-      const rowIndex1 = rowArray.indexOf(x);
-      const rowIndex2 = rowArray.indexOf(x2);
-      const firstRow = this[x];
-      
-      for (let i = rowIndex1 - 1; i <= rowIndex2; i += 1) {
-        const value = rowArray[i];
-        const currentRow = this[value];
-        currentRow[y2 - 1] = carrier;
+      if (x === x2) {
+        for (let i = y -1; i <= y2; i += 1 ) {
+          this[x][i] = carrier;
+        }
+      } else {
+         const rowArray = this.row;
+         const rowIndex1 = rowArray.indexOf(x);
+         const rowIndex2 = rowArray.indexOf(x2);
+         
+         for (let i = rowIndex1 - 1; i <= rowIndex2; i += 1) {
+          const value = rowArray[i];
+          const currentRow = this[value];
+          currentRow[y2 - 1] = carrier;
+        }
       }
     },
   };
