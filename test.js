@@ -29,13 +29,14 @@ test('test if gameboard addShip adds ship to coordinates horizontally', () => {
 
 test('test if gameboard addShip adds ship to coordinates vertically', () => {
   const mockBoard = gameboardFactory();
-  mockBoard.addShip('d', 2, 'd',7);
+  mockBoard.addShip('d', 2, 'd',6);
   expect(
+    mockBoard.d[1] &&
     mockBoard.d[2] &&
     mockBoard.d[3] &&
     mockBoard.d[4] &&
-    mockBoard.d[5] &&
-    mockBoard.d[6] &&
-    mockBoard.d[7] 
+    mockBoard.d[5]
+    
   ).toBeDefined();
 })
+
