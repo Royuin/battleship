@@ -83,3 +83,12 @@ test('gameboard receive attack method calling hit for that ship', () => {
     mockBoard.b[2].hits
   ).toBe(1);
 })
+
+test('gameboard receive attack method changed value to miss if coordinates are incorrect', () => {
+  const mockBoard = gameboardFactory();
+  mockBoard.addShip('b', 3, 'f', 3);
+  mockBoard.receiveAttack('b', 2);
+  expect(
+    mockBoard.b[1]
+  ).toBe('miss');
+})
