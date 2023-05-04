@@ -1,5 +1,7 @@
 import { shipFactory, gameboardFactory } from './script';
 
+
+
 test('shipFactory object is marked as sunk when hits are equal to shipFactory length', () => {
   const mockShip = shipFactory(2);
   mockShip.hit();
@@ -91,4 +93,17 @@ test('gameboard receive attack method changed value to miss if coordinates are i
   expect(
     mockBoard.b[1]
   ).toBe('miss');
+})
+
+test('gameboard reporting if all ships have been sunk', () => {
+  const mockBoard = gameboardFactory();
+  mockBoard.addShip('b', 3, 'f', 3);
+  mockBoard.receiveAttack('b', 3);
+  mockBoard.receiveAttack('c', 3);
+  mockBoard.receiveAttack('d', 3);
+  mockBoard.receiveAttack('e', 3);
+  expect(
+    mockBoard.receiveAttack('f', 3)
+    ).toBe('You lost!');
+   
 })
