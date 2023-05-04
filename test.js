@@ -36,7 +36,41 @@ test('test if gameboard addShip adds ship to coordinates vertically', () => {
     mockBoard.d[3] &&
     mockBoard.d[4] &&
     mockBoard.d[5]
-    
   ).toBeDefined();
 })
 
+test('when ship is added if all other spaces are still undefined', () => {
+  const mockBoard = gameboardFactory();
+  mockBoard.addShip('b', 3, 'f', 3);
+  const equalUndefined = (item) => {
+    return item === undefined
+  }
+
+let bArray = (mockBoard.b.slice(3));
+bArray.push(...mockBoard.b.slice(0, 2));
+
+let cArray = (mockBoard.c.slice(3));
+cArray.push(...mockBoard.c.slice(0, 2));
+
+let dArray = (mockBoard.d.slice(3));
+dArray.push(...mockBoard.d.slice(0, 2));
+
+let eArray = (mockBoard.e.slice(3));
+eArray.push(...mockBoard.e.slice(0, 2));
+
+let fArray = (mockBoard.f.slice(3));
+fArray.push(...mockBoard.f.slice(0, 2));
+
+  expect(
+   mockBoard.a.every(equalUndefined) &&
+   bArray.every(equalUndefined) &&
+   cArray.every(equalUndefined) &&
+   dArray.every(equalUndefined) &&
+   eArray.every(equalUndefined) && 
+   fArray.every(equalUndefined) &&
+   mockBoard.g.every(equalUndefined) &&
+   mockBoard.h.every(equalUndefined) &&
+   mockBoard.i.every(equalUndefined) &&
+   mockBoard.j.every(equalUndefined)
+  ).toBe(true)
+})
