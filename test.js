@@ -74,3 +74,12 @@ fArray.push(...mockBoard.f.slice(0, 2));
    mockBoard.j.every(equalUndefined)
   ).toBe(true)
 })
+
+test('gameboard receive attack method calling hit for that ship', () => {
+  const mockBoard = gameboardFactory();
+  mockBoard.addShip('b', 3, 'f', 3);
+  mockBoard.receiveAttack('c', 3);
+  expect(
+    mockBoard.b[2].hits
+  ).toBe(1);
+})
