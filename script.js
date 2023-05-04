@@ -69,6 +69,16 @@ export function gameboardFactory() {
         }
       }
     },
+    receiveAttack: function(x, y) {
+      if (this[x][y - 1] === undefined) {
+        this[x][y - 1] = 'miss';
+      }
+
+     else {
+        this[x][y - 1].hit();
+        this[x][y - 1] = 'hit';
+      }
+    }
   };
 }
 
