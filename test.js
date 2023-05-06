@@ -107,3 +107,11 @@ test('gameboard reporting if all ships have been sunk', () => {
     ).toBe('You lost!');
    
 })
+
+test('gameboard receiveAttack changing coordinate value to hit', () => {
+    const mockBoard = gameboardFactory();
+    mockBoard.addShip('b', 2, 'f',2);
+    mockBoard.receiveAttack('c', 2);
+    expect(mockBoard.c[1]).toBe('hit')
+})
+
