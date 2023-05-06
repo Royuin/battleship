@@ -56,6 +56,7 @@ export function gameboardFactory() {
       if (x === x2) {
         for (let i = y-1 ; i < y2; i += 1 ) {
           this[x][i] = carrier;
+          this.ships.push(carrier);
         }
       } else {
          const rowArray = this.row;
@@ -77,8 +78,13 @@ export function gameboardFactory() {
      else {
         this[x][y - 1].hit();
         this[x][y - 1] = 'hit';
+        if (this.ships.every(ship => ship.isSunk === true)) {
+          return ('You lost!');
+        }
       }
-    }
+    },
+    ships: []
+
   };
 }
 
