@@ -5,11 +5,12 @@ export function shipFactory(length) {
     sunk: false,
     isSunk: function () {
       if (this.hits === this.length) {
-        this.sunk = true;
+        this.sunk = true;  
       }
     },
     hit: function () {
       this.hits += 1;
+      this.isSunk();
     },
   };
 }
@@ -53,10 +54,10 @@ export function gameboardFactory() {
         throw new Error('Invalid Coordinates Soldier!');
       }
      const thisShip = shipFactory(5)
-      if (x === x2) {
-        for (let i = y-1 ; i < y2; i += 1 ) {
-          this[x][i] = thisShip;
-          this.ships.push(thisShip);
+     this.ships.push(thisShip);
+     if (x === x2) {
+       for (let i = y-1 ; i < y2; i += 1 ) {
+         this[x][i] = thisShip;
         }
       } else {
          const rowArray = this.row;
@@ -66,7 +67,7 @@ export function gameboardFactory() {
          for (let i = rowIndex1; i <= rowIndex2; i += 1) {
           const value = rowArray[i];
           const currentRow = this[value];
-          currentRow[y2 - 1] = thisShip;
+          currentRow[y2 - 1] = thisShip;  
         }
       }
     },
@@ -78,7 +79,7 @@ export function gameboardFactory() {
      else {
         this[x][y - 1].hit();
         this[x][y - 1] = 'hit';
-        if (this.ships.every(ship => ship.isSunk === true)) {
+        if (this.ships.every(ship => ship.sunk === true)) {
           return ('You lost!');
         }
       }
