@@ -102,10 +102,7 @@ test('gameboard reporting if all ships have been sunk', () => {
   mockBoard.receiveAttack('c', 3);
   mockBoard.receiveAttack('d', 3);
   mockBoard.receiveAttack('e', 3);
-  expect(
-    mockBoard.receiveAttack('f', 3)
-    ).toBe('You lost!');
-   
+  expect(mockBoard.receiveAttack('f', 3)).toBe('You lost!'); 
 })
 
 test('gameboard receiveAttack changing coordinate value to hit', () => {
