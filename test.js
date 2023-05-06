@@ -112,3 +112,9 @@ test('gameboard receiveAttack changing coordinate value to hit', () => {
     expect(mockBoard.c[1]).toBe('hit')
 })
 
+test('changing number of hits on ship when receiveAttack coordinates are correct', () => {
+  const mockBoard = gameboardFactory();
+  mockBoard.addShip('b', 2, 'f',2);
+  mockBoard.receiveAttack('c', 2);
+  expect(mockBoard.b[1].hits).toBe(1);
+})
