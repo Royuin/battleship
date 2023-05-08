@@ -88,11 +88,20 @@ export function gameboardFactory() {
 
 export function playerFactory(name) {
   const gameboard = gameboardFactory();
+  let attack = function(x,y ) {      
+    p2.gameboard.receiveAttack(x,y);
+    p2.attack()
+  };
+  if (name === 'computer') {
+    attack = function () {
+      let compX = gameboard.row[Math.floor(Math.random() * gameboard.row.length)]
+      let compY = Math.floor(Math.random() * 10);
+      p1.gameboard.receiveAttack(compX,compY);
+    };
+  };
   return {
     name,
     gameboard,
-    attack: function(x,y ) {      
-      p2.gameboard.receiveAttack(x,y);
-    }
+    attack,
   }
 }
