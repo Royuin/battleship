@@ -1,5 +1,10 @@
 import { shipFactory, gameboardFactory, playerFactory, } from './script.js';
 
+
+let p1 = playerFactory('player');
+
+console.log(p1)
+
 test('shipFactory object is marked as sunk when hits are equal to shipFactory length', () => {
   const mockShip = shipFactory(2);
   mockShip.hit();
@@ -127,3 +132,30 @@ test('player attacking computer changing computer ship hits when coordinates are
   p1.attack('b', 3);
   expect(p2.gameboard.ships[0].hits).toBe(1);
 })
+
+test('computer taking turn after player takes their turn', () => {
+  let p1 = playerFactory('player');
+  let p2 = playerFactory('computer');
+  p2.attack = function () {
+    let compX = p1.gameboard.row[Math.floor(Math.random() * p1.gameboard.row.length)]
+    let compY = Math.floor(Math.random() * 10);
+    p1.gameboard.receiveAttack(compX,compY);
+  };
+  p1.attack =  function(x,y ) {    
+    p2.attack();
+  };
+  p2.gameboard.addShip('b', 2, 'b', 6);
+  p1.attack('b', 3);
+  function valueChanged() {
+    for(let i = 0; i < p1.gameboard.row.length; i ++) {
+      let index = p1.gameboard.row[i];
+      let row = p1.gameboard[index];
+      console.log(row, index, i)
+      if (row.includes('miss')) {
+        return true;
+      } 
+    }
+  }
+  expect(valueChanged()).toBe(true)
+})
+
