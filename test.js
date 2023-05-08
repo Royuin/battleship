@@ -1,6 +1,4 @@
-import { shipFactory, gameboardFactory } from './script';
-
-
+import { shipFactory, gameboardFactory, playerFactory, } from './script.js';
 
 test('shipFactory object is marked as sunk when hits are equal to shipFactory length', () => {
   const mockShip = shipFactory(2);
@@ -117,4 +115,15 @@ test('changing number of hits on ship when receiveAttack coordinates are correct
   mockBoard.addShip('b', 2, 'f',2);
   mockBoard.receiveAttack('c', 2);
   expect(mockBoard.b[1].hits).toBe(1);
+})
+
+test('player attacking computer changing computer ship hits when coordinates are correct', () => {
+  let p1 = playerFactory('player');
+  let p2 = playerFactory('computer');
+  p1.attack =  function(x,y ) {    
+    return p2.gameboard.receiveAttack(x,y);
+  }
+  p2.gameboard.addShip('b', 2, 'b', 6);
+  p1.attack('b', 3);
+  expect(p2.gameboard.ships[0].hits).toBe(1);
 })
