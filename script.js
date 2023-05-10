@@ -1,3 +1,5 @@
+import { displayCompBoard, displayP1Board } from "./dom.js";
+
 export function shipFactory(length) {
   return {
     length,
@@ -105,3 +107,12 @@ export function playerFactory(name) {
     attack,
   }
 }
+
+let p1 = playerFactory('player');
+let p1Board = p1.gameboard;
+let p2 = playerFactory('computer')
+let p2Board = p2.gameboard;
+
+displayP1Board(p1Board);
+
+displayCompBoard(p2Board);
