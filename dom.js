@@ -10,6 +10,8 @@ export function createRowCells(dom, array, row) {
  function displayColNums(playerGrid, boards) {
   const row = document.createElement('div');
   row.classList = 'num-row';
+  const blank = document.createElement('p');
+  row.appendChild(blank)
   for (let i = 1; i <= 10; i += 1) {
     const num = document.createElement('p');
     num.textContent = i.toString();
@@ -30,6 +32,9 @@ export function displayP1Board(board) {
   for(let i = 0; i < board.row.length; i += 1) {
     let index = board.row[i];
     let row = board[index];
+    const colLetter = document.createElement('p');
+    colLetter.textContent = board.row[i];
+    p1Grid.appendChild(colLetter);
     createRowCells(p1Grid, row, index);
   }
 }
@@ -46,6 +51,9 @@ export function displayCompBoard(board) {
   for(let i = 0; i < board.row.length; i += 1) {
     let index = board.row[i];
     let row = board[index];
+    const colLetter = document.createElement('p');
+    colLetter.textContent = board.row[i];
+    compGrid.appendChild(colLetter);
     createRowCells(compGrid, row, index)
   }
 }
