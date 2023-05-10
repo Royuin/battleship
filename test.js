@@ -1,10 +1,5 @@
 import { shipFactory, gameboardFactory, playerFactory, } from './script.js';
 
-
-let p1 = playerFactory('player');
-
-console.log(p1)
-
 test('shipFactory object is marked as sunk when hits are equal to shipFactory length', () => {
   const mockShip = shipFactory(2);
   mockShip.hit();
@@ -150,7 +145,6 @@ test('computer taking turn after player takes their turn', () => {
     for(let i = 0; i < p1.gameboard.row.length; i ++) {
       let index = p1.gameboard.row[i];
       let row = p1.gameboard[index];
-      console.log(row, index, i)
       if (row.includes('miss')) {
         return true;
       } 
