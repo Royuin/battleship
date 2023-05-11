@@ -55,7 +55,16 @@ export function gameboardFactory() {
       if (x !== x2 && y !== y2) {
         throw new Error('Invalid Coordinates Soldier!');
       }
-      const thisShip = shipFactory(5)
+      let thisShip
+      if (this.ships.length === 0) {
+        thisShip = shipFactory(4)
+      } else if (this.ships.length > 1 && this.ships.length < 3 ) {
+        thisShip = shipFactory(3)
+      } else if (this.ships.length > 3 && this.ships.length < 6 ) {
+        this.ship = shipFactory(2);
+      } else if (this.ships.length > 6 && this.ships.length < 10) {
+        this.ship = shipFactory(1);
+      }
       this.ships.push(thisShip);
       if (x === x2) {
         for (let i = y-1 ; i < y2; i += 1 ) {
