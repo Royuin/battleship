@@ -7,21 +7,9 @@ export function createRowCells(dom, array, row) {
   }
 }
 
- function displayColNums(playerGrid, boards) {
-  const row = document.createElement('div');
-  row.classList = 'num-row';
-  const blank = document.createElement('p');
-  row.appendChild(blank)
-  for (let i = 1; i <= 10; i += 1) {
-    const num = document.createElement('p');
-    num.textContent = i.toString();
-    row.appendChild(num);
-  }
-  playerGrid.insertBefore(row, boards)
-}
 
 export function displayP1Board(board) {
-  const main = document.querySelector('main')
+  const main = document.querySelector('.test')
   const board1 = document.createElement('div');
   board1.classList = 'board1';
   displayColNums(board1);
@@ -56,4 +44,17 @@ export function displayCompBoard(board) {
     compGrid.appendChild(colLetter);
     createRowCells(compGrid, row, index)
   }
+}
+
+function displayColNums(playerGrid, boards) {
+ const row = document.createElement('div');
+ row.classList = 'num-row';
+ const blank = document.createElement('p');
+ row.appendChild(blank)
+ for (let i = 1; i <= 10; i += 1) {
+   const num = document.createElement('p');
+   num.textContent = i.toString();
+   row.appendChild(num);
+ }
+ playerGrid.insertBefore(row, boards)
 }
