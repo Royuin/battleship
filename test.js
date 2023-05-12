@@ -92,9 +92,9 @@ test('gameboard reporting if all ships have been sunk', () => {
 
 test('gameboard receiveAttack changing coordinate value to hit', () => {
     const mockBoard = gameboardFactory();
-    mockBoard.addShip('b', 2, 'f',2);
-    mockBoard.receiveAttack('c', 2);
-    expect(mockBoard.c[1]).toBe('hit')
+    mockBoard.addShip('b', 2);
+    mockBoard.receiveAttack('b', 2);
+    expect(mockBoard.b[1]).toBe('hit')
 })
 
 test('changing number of hits on ship when receiveAttack coordinates are correct', () => {
