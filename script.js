@@ -18,7 +18,9 @@ export function shipFactory(length) {
 }
 
 export function gameboardFactory() {
+  let newShip;
   return {
+    ships: [],
     row: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'],
     a: [
       undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,
@@ -51,36 +53,34 @@ export function gameboardFactory() {
       undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,
     ],
     
-    addShip: function (x, y, x2, y2) {
-      if (x !== x2 && y !== y2) {
+    addShip: function (x, y) {
+      if (this.ships.length === 0) {
+        newShip = shipFactory(4)
+      }  else if (this.ships.length > 0 && this.ships.length < 3 ) {
+        newShip = shipFactory(3)      
+      } else if (this.ships.length > 2 && this.ships.length < 6 ) {
+        newShip = shipFactory(2);
+      }  else if (this.ships.length > 6 && this.ships.length < 10) {
+        newShip = shipFactory(1);
+      } else if (this.ships.length > 10) {
+        throw new Error("You're out of ships soldie");
+      }
+
+      if (y + newShip.length > 10) {
         throw new Error('Invalid Coordinates Soldier!');
       }
-      let thisShip
-      if (this.ships.length === 0) {
-        thisShip = shipFactory(4)
-      } else if (this.ships.length > 1 && this.ships.length < 3 ) {
-        thisShip = shipFactory(3)
-      } else if (this.ships.length > 3 && this.ships.length < 6 ) {
-        this.ship = shipFactory(2);
-      } else if (this.ships.length > 6 && this.ships.length < 10) {
-        this.ship = shipFactory(1);
+      this.ships.push(newShip);
+
+      if (newShip.length === 1) {
+        this[x][y] = newShip;
       }
-      this.ships.push(thisShip);
-      if (x === x2) {
-        for (let i = y-1 ; i < y2; i += 1 ) {
-          this[x][i] = thisShip;
-        }
-      } else {
-        const rowArray = this.row;
-        const rowIndex1 = rowArray.indexOf(x);
-        const rowIndex2 = rowArray.indexOf(x2); 
-        for (let i = rowIndex1; i <= rowIndex2; i += 1) {
-          const value = rowArray[i];
-          const currentRow = this[value];
-          currentRow[y2 - 1] = thisShip;  
+       
+        for (let i = 0; i < newShip.length; i += 1) {
+        this[x][y + i] = newShip;
         }
       }
-    },
+    
+  ,
     receiveAttack: function(x, y) {
       if (this[x][y - 1] === undefined) {
         this[x][y - 1] = 'miss';
@@ -92,8 +92,6 @@ export function gameboardFactory() {
         }
       }
     },
-    ships: []
-    
   };
 }
 
@@ -117,11 +115,11 @@ export function playerFactory(name) {
   }
 }
 
-let p1 = playerFactory('player');
+
+const p1 = playerFactory('player');
 let p1Board = p1.gameboard;
 let p2 = playerFactory('computer')
 let p2Board = p2.gameboard;
 
 displayP1Board(p1Board);
-
 displayCompBoard(p2Board);
