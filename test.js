@@ -63,18 +63,9 @@ bArray.push(...mockBoard.b.slice(0, 2));
   ).toBe(true)
 })
 
-test('gameboard receive attack method calling hit for that ship', () => {
-  const mockBoard = gameboardFactory();
-  mockBoard.addShip('b', 3, 'f', 3);
-  mockBoard.receiveAttack('c', 3);
-  expect(
-    mockBoard.b[2].hits
-  ).toBe(1);
-})
-
 test('gameboard receive attack method changed value to miss if coordinates are incorrect', () => {
   const mockBoard = gameboardFactory();
-  mockBoard.addShip('b', 3, 'f', 3);
+  mockBoard.addShip('b', 3);
   mockBoard.receiveAttack('b', 2);
   expect(
     mockBoard.b[1]
@@ -99,8 +90,8 @@ test('gameboard receiveAttack changing coordinate value to hit', () => {
 
 test('changing number of hits on ship when receiveAttack coordinates are correct', () => {
   const mockBoard = gameboardFactory();
-  mockBoard.addShip('b', 2, 'f',2);
-  mockBoard.receiveAttack('c', 2);
+  mockBoard.addShip('b', 2);
+  mockBoard.receiveAttack('b', 2);
   expect(mockBoard.b[1].hits).toBe(1);
 })
 
@@ -110,7 +101,7 @@ test('player attacking computer changing computer ship hits when coordinates are
   p1.attack =  function(x,y ) {    
     return p2.gameboard.receiveAttack(x,y);
   }
-  p2.gameboard.addShip('b', 2, 'b', 6);
+  p2.gameboard.addShip('b', 2);
   p1.attack('b', 3);
   expect(p2.gameboard.ships[0].hits).toBe(1);
 })
