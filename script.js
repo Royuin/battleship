@@ -76,10 +76,13 @@ export function gameboardFactory() {
       }
        
         for (let i = 0; i < newShip.length; i += 1) {
-        this[x][y + i] = newShip;
+          if (i === 0) {
+            this[x][y - 1] = newShip;
+          } else {
+        this[x][y + i - 1] = newShip;
+          }
         }
       }
-    
   ,
     receiveAttack: function(x, y) {
       if (this[x][y - 1] === undefined) {
@@ -116,6 +119,7 @@ export function playerFactory(name) {
 }
 
 
+
 const p1 = playerFactory('player');
 let p1Board = p1.gameboard;
 let p2 = playerFactory('computer')
@@ -123,3 +127,5 @@ let p2Board = p2.gameboard;
 
 displayP1Board(p1Board);
 displayCompBoard(p2Board);
+// p1.gameboard.addShip('b', 3);
+
