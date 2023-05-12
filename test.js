@@ -92,7 +92,7 @@ test('changing number of hits on ship when receiveAttack coordinates are correct
   const mockBoard = gameboardFactory();
   mockBoard.addShip('b', 2);
   mockBoard.receiveAttack('b', 2);
-  expect(mockBoard.b[1].hits).toBe(1);
+  expect(mockBoard.b[2].hits).toBe(1);
 })
 
 test('player attacking computer changing computer ship hits when coordinates are correct', () => {
