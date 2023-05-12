@@ -83,12 +83,11 @@ test('gameboard receive attack method changed value to miss if coordinates are i
 
 test('gameboard reporting if all ships have been sunk', () => {
   const mockBoard = gameboardFactory();
-  mockBoard.addShip('b', 3, 'f', 3);
+  mockBoard.addShip('b', 3);
   mockBoard.receiveAttack('b', 3);
-  mockBoard.receiveAttack('c', 3);
-  mockBoard.receiveAttack('d', 3);
-  mockBoard.receiveAttack('e', 3);
-  expect(mockBoard.receiveAttack('f', 3)).toBe('You lost!'); 
+  mockBoard.receiveAttack('b', 4);
+  mockBoard.receiveAttack('b', 5);
+  expect(mockBoard.receiveAttack('b', 6)).toBe('You lost!'); 
 })
 
 test('gameboard receiveAttack changing coordinate value to hit', () => {
