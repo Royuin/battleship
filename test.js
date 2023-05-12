@@ -27,7 +27,7 @@ test('test if gameboard addShip adds ship to coordinates horizontally', () => {
   ).toBeDefined();
 });
 
-test('test if gameboard addShip adds ship to coordinates vertically', () => {
+test('gameboard addShip adds ship to coordinates vertically', () => {
   const mockBoard = gameboardFactory();
   mockBoard.addShip('d', 2, 'd',6);
   expect(
@@ -46,8 +46,8 @@ test('when ship is added if all other spaces are still undefined', () => {
     return item === undefined
   }
 
-let bArray = (mockBoard.b.slice(7, 10));
-bArray.push(...mockBoard.b.slice(0, 2));
+  let bArray = (mockBoard.b.slice(7, 10));
+  bArray.push(...mockBoard.b.slice(0, 2));
 
   expect(
    mockBoard.a.every(equalUndefined) &&
@@ -117,7 +117,7 @@ test('computer taking turn after player takes their turn', () => {
   p1.attack =  function(x,y ) {    
     p2.attack();
   };
-  p2.gameboard.addShip('b', 2, 'b', 6);
+  p2.gameboard.addShip('b', 2);
   p1.attack('b', 3);
   function valueChanged() {
     for(let i = 0; i < p1.gameboard.row.length; i ++) {
