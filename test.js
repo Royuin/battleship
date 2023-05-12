@@ -1,4 +1,5 @@
 import { shipFactory, gameboardFactory, playerFactory, } from './script.js';
+import { createRowCells, displayColNums, displayP1Board, displayCompBoard, main} from './dom.js';
 
 test('shipFactory object is marked as sunk when hits are equal to shipFactory length', () => {
   const mockShip = shipFactory(2);
@@ -17,13 +18,12 @@ test('shipFactory object is marked as not sunk while hits are less than ship len
 
 test('test if gameboard addShip adds ship to coordinates horizontally', () => {
   const mockBoard = gameboardFactory();
-  mockBoard.addShip('b', 3, 'f', 3);
+  mockBoard.addShip('b', 3);
   expect(
     mockBoard.b[2] &&
-      mockBoard.c[2] &&
-      mockBoard.d[2] &&
-      mockBoard.e[2] &&
-      mockBoard.f[2]
+      mockBoard.b[3] &&
+      mockBoard.b[4] &&
+      mockBoard.b[5]
   ).toBeDefined();
 });
 
