@@ -1,4 +1,4 @@
-import { displayCompBoard, displayP1Board } from "./dom.js";
+import { displayCompBoard, displayP1Board, updateDomBoard } from "./dom.js";
 
 export function shipFactory(length) {
   return {
@@ -53,7 +53,7 @@ export function gameboardFactory() {
       undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,
     ],
     
-    addShip: function (x, y) {
+    addShip: function (x, y, horizontal) {
       if (this.ships.length === 0) {
         newShip = shipFactory(4)
       }  else if (this.ships.length > 0 && this.ships.length < 3 ) {
@@ -63,18 +63,20 @@ export function gameboardFactory() {
       }  else if (this.ships.length > 6 && this.ships.length < 10) {
         newShip = shipFactory(1);
       } else if (this.ships.length > 10) {
-        throw new Error("You're out of ships soldie");
+        throw new Error("You're out of ships soldier");
       }
-
-      if (y + newShip.length > 10) {
+      
+      if (!horizontal && y + newShip.length > 10) {
        return new Error('Invalid Coordinates Soldier!');
+      } else if (horizontal && this.row[this.row.indexOf(x) + newShip.length] > 10) {
+        return new Error('Invalid Coordinates Soldier!');
       }
       this.ships.push(newShip);
 
       if (newShip.length === 1) {
         this[x][y] = newShip;
       }
-       
+      if (!horizontal) {
         for (let i = 0; i < newShip.length; i += 1) {
           if (i === 0) {
             this[x][y - 1] = newShip;
@@ -82,6 +84,16 @@ export function gameboardFactory() {
         this[x][y + i - 1] = newShip;
           }
         }
+      }
+      else if (horizontal) {
+        let xIndex = this.row.indexOf(x);
+        this[x][y-1] = newShip;
+        for (let i = 0; i < newShip.length; i += 1) {
+          let newIndex = xIndex + i;
+          let newX = this.row[newIndex];
+          this[newX][y - 1] = newShip;
+        }
+      }
       }
   ,
     receiveAttack: function(x, y) {
@@ -129,7 +141,7 @@ export const main = document.querySelector('main');
 
 const p1 = playerFactory('player');
 let p1Board = p1.gameboard;
-let p2 = playerFactory('computer')
+const p2 = playerFactory('computer')
 let p2Board = p2.gameboard;
 
 displayP1Board(p1Board);
