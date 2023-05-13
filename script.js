@@ -67,7 +67,7 @@ export function gameboardFactory() {
       }
 
       if (y + newShip.length > 10) {
-        throw new Error('Invalid Coordinates Soldier!');
+       return new Error('Invalid Coordinates Soldier!');
       }
       this.ships.push(newShip);
 
@@ -95,6 +95,13 @@ export function gameboardFactory() {
         }
       }
     },
+    fillBoard: function() {
+      while (this.ships.length < 10) { 
+      let letter = this.row[Math.floor(Math.random() *  this.row.length)]
+      let num = Math.floor(Math.random() * 10 + 1);
+      this.addShip(letter, num);
+    }
+    },
   };
 }
 
@@ -118,7 +125,7 @@ export function playerFactory(name) {
   }
 }
 
-
+export const main = document.querySelector('main');
 
 const p1 = playerFactory('player');
 let p1Board = p1.gameboard;
@@ -127,5 +134,4 @@ let p2Board = p2.gameboard;
 
 displayP1Board(p1Board);
 displayCompBoard(p2Board);
-// p1.gameboard.addShip('b', 3);
 
