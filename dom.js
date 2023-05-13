@@ -9,7 +9,7 @@ export function createRowCells(dom, array, row) {
 
 
 export function displayP1Board(board) {
-  const main = document.querySelector('.test')
+  const main = document.querySelector('main')
   const board1 = document.createElement('div');
   board1.classList = 'board1';
   displayColNums(board1);
