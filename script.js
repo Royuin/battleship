@@ -71,28 +71,34 @@ export function gameboardFactory() {
       } else if (horizontal && this.row[this.row.indexOf(x) + newShip.length] > 10) {
         return new Error('Invalid Coordinates Soldier!');
       }
-      this.ships.push(newShip);
 
       if (newShip.length === 1) {
+        if (this[x][y] !== undefined) {
+          return new Error('Coordinates already attacked!');
+        }
         this[x][y] = newShip;
-      }
+      } 
       if (!horizontal) {
         for (let i = 0; i < newShip.length; i += 1) {
-          if (i === 0) {
-            this[x][y - 1] = newShip;
-          } else {
-        this[x][y + i - 1] = newShip;
+          let yIndex = y + i - 1 
+          if ( this[x][yIndex] !== undefined) {
+            return new Error('Coordinates already attacked!');
+          } 
+          this[x][y + i - 1] = newShip;
           }
-        }
-      }
-      else if (horizontal) {
+          this.ships.push(newShip);
+      } else if (horizontal) {
         let xIndex = this.row.indexOf(x);
-        this[x][y-1] = newShip;
         for (let i = 0; i < newShip.length; i += 1) {
           let newIndex = xIndex + i;
           let newX = this.row[newIndex];
+          if (this[newX][y- 1] !== undefined) {
+            return new Error('Coordinate already attacked!');
+          } 
+          this[x][y-1] = newShip;
           this[newX][y - 1] = newShip;
         }
+        this.ships.push(newShip);
       }
       }
   ,
@@ -144,6 +150,8 @@ let p1Board = p1.gameboard;
 const p2 = playerFactory('computer')
 let p2Board = p2.gameboard;
 
+p1.gameboard.fillBoard();
 displayP1Board(p1Board);
 displayCompBoard(p2Board);
 
+updateDomBoard(p1);
