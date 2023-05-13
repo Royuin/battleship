@@ -62,23 +62,25 @@ export function gameboardFactory() {
         newShip = shipFactory(2);
       }  else if (this.ships.length > 6 && this.ships.length < 10) {
         newShip = shipFactory(1);
-      } else if (this.ships.length > 10) {
+      } else if (this.ships.length >= 10) {
         throw new Error("You're out of ships soldier");
       }
       
       if (!horizontal && y + newShip.length > 10) {
        return new Error('Invalid Coordinates Soldier!');
-      } else if (horizontal && this.row[this.row.indexOf(x) + newShip.length] > 10) {
+      } else if (horizontal && this.row.indexOf(x) + newShip.length > 10) {
         return new Error('Invalid Coordinates Soldier!');
       }
 
       if (newShip.length === 1) {
-        if (this[x][y] !== undefined) {
+        if (this[x][y -1] !== undefined) {
           return new Error('Coordinates already attacked!');
         }
-        this[x][y] = newShip;
-      } 
-      if (!horizontal) {
+        else {
+         this[x][y -1] = newShip;
+         this.ships.push(newShip);
+        }
+      } else if (!horizontal) {
         for (let i = 0; i < newShip.length; i += 1) {
           let yIndex = y + i - 1 
           if ( this[x][yIndex] !== undefined) {
@@ -90,13 +92,20 @@ export function gameboardFactory() {
       } else if (horizontal) {
         let xIndex = this.row.indexOf(x);
         for (let i = 0; i < newShip.length; i += 1) {
-          let newIndex = xIndex + i;
+          let newIndex;
+          if (i === 0) {
+            newIndex = xIndex;
+          } else {
+          newIndex = xIndex + i;
+          }
           let newX = this.row[newIndex];
-          if (this[newX][y- 1] !== undefined) {
+          console.log(newIndex, newX);
+          if (this[newX][y - 1] !== undefined) {
             return new Error('Coordinate already attacked!');
-          } 
+          } else  {
           this[x][y-1] = newShip;
           this[newX][y - 1] = newShip;
+          }
         }
         this.ships.push(newShip);
       }
@@ -115,9 +124,14 @@ export function gameboardFactory() {
     },
     fillBoard: function() {
       while (this.ships.length < 10) { 
-      let letter = this.row[Math.floor(Math.random() *  this.row.length)]
-      let num = Math.floor(Math.random() * 10 + 1);
-      this.addShip(letter, num);
+        const horizontal = Math.round(Math.random() * 1 + 0);  
+        let letter = this.row[Math.floor(Math.random() *  this.row.length)]
+        let num = Math.floor(Math.random() * 10 + 1);
+        if (horizontal === 0) {
+          this.addShip(letter, num);
+        } else if (horizontal === 1) {
+          this.addShip(letter, num, true);
+        }
     }
     },
   };
