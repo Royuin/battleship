@@ -99,7 +99,6 @@ export function gameboardFactory() {
           newIndex = xIndex + i;
           }
           let newX = this.row[newIndex];
-          console.log(newIndex, newX);
           if (this[newX][y - 1] !== undefined) {
             return new Error('Coordinate already attacked!');
           } else  {
