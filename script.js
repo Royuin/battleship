@@ -108,17 +108,24 @@ export function gameboardFactory() {
         }
         this.ships.push(newShip);
       }
-      }
+    }
   ,
-    receiveAttack: function(x, y) {
+    receiveAttack: function(x, y, p2Attack) {
       if (this[x][y - 1] === undefined) {
         this[x][y - 1] = 'miss';
-      } else {  
-        this[x][y - 1].hit();
-        this[x][y - 1] = 'hit';
-        if (this.ships.every(ship => ship.sunk === true)) {
-          return ('You lost!');
+        if (p2Attack) {
+          p2.attack();
         }
+      } else if (this[x][y-1] === 'hit' || this[x][y-1] === 'miss') {    
+       return new Error('Coordinates already attacked!'); 
+      } else if (typeof this[x][y - 1] === 'object' ){  
+          this[x][y - 1].hit();
+          this[x][y - 1] = 'hit';
+          if (this.ships.every(ship => ship.sunk === true)) {
+            return ('You lost!');
+          } else if (p2Attack){
+            p2.attack();
+          }
       }
     },
     fillBoard: function() {
@@ -131,7 +138,7 @@ export function gameboardFactory() {
         } else if (horizontal === 1) {
           this.addShip(letter, num, true);
         }
-    }
+      }
     },
   };
 }
@@ -139,13 +146,12 @@ export function gameboardFactory() {
 export function playerFactory(name) {
   const gameboard = gameboardFactory();
   let attack = function(x,y ) {      
-    p2.gameboard.receiveAttack(x,y);
-    p2.attack()
+    p2.gameboard.receiveAttack(x,y, p2.attack);
   };
   if (name === 'computer') {
     attack = function () {
       let compX = gameboard.row[Math.floor(Math.random() * gameboard.row.length)]
-      let compY = Math.floor(Math.random() * 10);
+      let compY = Math.floor(Math.random() * 10 + 1);
       p1.gameboard.receiveAttack(compX,compY);
     };
   };
