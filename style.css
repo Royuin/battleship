@@ -10,8 +10,8 @@ body {
 }
 
 .cell {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #60a5fa;
   border: 1px solid #172554;
   color: #172554;
@@ -44,8 +44,8 @@ main {
 }
   
 p {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: grid;
   align-items: center;
   justify-content: center;
@@ -53,3 +53,14 @@ p {
   font-weight: bold;
   }
   
+.ship {
+ background-color: #f0f9ff; 
+}
+
+.hit {
+  background-color: #b91c1c;
+}
+
+.miss {
+  background-color: #172554;
+}
