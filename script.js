@@ -124,7 +124,11 @@ export function gameboardFactory() {
             p2.attack();
           }
       } else if (this[x][y-1] === 'hit' || this[x][y-1] === 'miss') {    
+        if (!p2Attack) {
+          p2.attack()
+        } else {
        return new Error('Coordinates already attacked!'); 
+        }
       } else if (typeof this[x][y - 1] === 'object' ){  
           this[x][y - 1].hit();
           this[x][y - 1] = 'hit';
