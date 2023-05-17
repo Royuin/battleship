@@ -1,4 +1,4 @@
-import { displayCompBoard, displayP1Board, updateDomBoard } from "./dom.js";
+import { displayCompBoard, displayP1Board, updateDomBoard, attackQuerySelectors } from "./dom.js";
 
 export function shipFactory(length) {
   return {
@@ -111,19 +111,24 @@ export function gameboardFactory() {
     }
   ,
     receiveAttack: function(x, y, p2Attack) {
-      if (this[x][y - 1] === undefined) {
-        this[x][y - 1] = 'miss';
+      if (this.ships.every(ship => ship.sunk === true)) {
         if (p2Attack) {
-          p2.attack();
+          console.log('YOU WIN!')
+        } else {
+          console.log('YOU LOSE!')
         }
+        return
+      } else if (this[x][y - 1] === undefined) {
+          this[x][y - 1] = 'miss';
+          if (p2Attack) {
+            p2.attack();
+          }
       } else if (this[x][y-1] === 'hit' || this[x][y-1] === 'miss') {    
        return new Error('Coordinates already attacked!'); 
       } else if (typeof this[x][y - 1] === 'object' ){  
           this[x][y - 1].hit();
           this[x][y - 1] = 'hit';
-          if (this.ships.every(ship => ship.sunk === true)) {
-            return ('You lost!');
-          } else if (p2Attack){
+           if (p2Attack){
             p2.attack();
           }
       }
@@ -170,7 +175,7 @@ const p2 = playerFactory('computer')
 let p2Board = p2.gameboard;
 
 p1.gameboard.fillBoard();
+p2.gameboard.fillBoard();
+
 displayP1Board(p1Board);
 displayCompBoard(p2Board);
-
-updateDomBoard(p1);
