@@ -2,7 +2,6 @@ export function createRowCells(dom, array, row) {
   for (let i = 0; i < array.length; i += 1) {
     const cell = document.createElement('div');
     cell.classList = 'cell';
-    cell.id = `${row}${i + 1}`
     dom.appendChild(cell);
   }
 }
@@ -58,3 +57,43 @@ function displayColNums(playerGrid, boards) {
  }
  playerGrid.insertBefore(row, boards)
 }
+
+export function updateDomBoard(player) {
+  const board = player.gameboard;
+  const letterArray = board.row; 
+  let cells;
+  if (player.name === 'player') {
+    cells = document.querySelectorAll('.grid1 > .cell')
+    for (let l = 0; l < letterArray.length; l += 1 ) {
+      let thisLetter = letterArray[l];
+      for (let n = 0; n < 10; n += 1) {
+        const value = board[thisLetter][n];
+        const thisCell = cells[(l * 10) + n];    
+        if (typeof value === 'object') {
+          thisCell.classList = 'cell ship'
+        } else if (value === 'hit') {
+            thisCell.classList = ' cell hit';
+        } else if (value === 'miss') {
+            thisCell.classList= 'cell miss';
+        } 
+      }
+    }
+  } else if (player.name === 'computer') {
+    cells = document.querySelectorAll('.grid2 > .cell')
+    for (let l = 0; l < letterArray.length; l += 1 ) {
+      let thisLetter = letterArray[l];
+      for (let n = 0; n < 10; n += 1) {
+        const thisCell = cells[(l * 10) + n];
+        const value = board[thisLetter][n];
+        if (value === 'hit') {
+          thisCell.classList = 'cell hit';
+        } else if (value === 'miss') {
+            thisCell.classList = 'cell miss';
+        }
+      }
+    }
+
+  }
+
+}
+
