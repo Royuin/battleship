@@ -18,24 +18,23 @@ test('shipFactory object is marked as not sunk while hits are less than ship len
 
 test('test if gameboard addShip adds ship to coordinates horizontally', () => {
   const mockBoard = gameboardFactory();
-  mockBoard.addShip('b', 3);
+  mockBoard.addShip('b', 3, true);
   expect(
     mockBoard.b[2] &&
-      mockBoard.b[3] &&
-      mockBoard.b[4] &&
-      mockBoard.b[5]
+      mockBoard.c[2] &&
+      mockBoard.d[2] &&
+      mockBoard.e[2]
   ).toBeDefined();
 });
 
 test('gameboard addShip adds ship to coordinates vertically', () => {
   const mockBoard = gameboardFactory();
-  mockBoard.addShip('d', 2, 'd',6);
+  mockBoard.addShip('d', 2);
   expect(
     mockBoard.d[1] &&
     mockBoard.d[2] &&
     mockBoard.d[3] &&
-    mockBoard.d[4] &&
-    mockBoard.d[5]
+    mockBoard.d[4]
   ).toBeDefined();
 })
 
