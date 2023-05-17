@@ -60,36 +60,65 @@ function displayColNums(playerGrid, boards) {
 
 export function updateDomBoard(p1,p2) {
   const letterArray = p1.gameboard.row;
-  let cells;
 
-  cells = document.querySelectorAll('.grid1 > .cell')
+  let p1Cells = document.querySelectorAll('.grid1 > .cell')
   for (let l = 0; l < letterArray.length; l += 1 ) {
     let thisLetter = letterArray[l];
     for (let n = 0; n < 10; n += 1) {
       const value = p1.gameboard[thisLetter][n];
-      const thisCell = cells[(l * 10) + n];    
+      const thisCell = p1Cells[(l * 10) + n];    
       if (typeof value === 'object') {
-        thisCell.classList = 'cell ship'
+        thisCell.classList = ' cell ship'
       } else if (value === 'hit') {
           thisCell.classList = ' cell hit';
       } else if (value === 'miss') {
-          thisCell.classList= 'cell miss';
+          thisCell.classList = ' cell miss';
         } 
       }
     }
   
-    cells = document.querySelectorAll('.grid2 > .cell')
+    let p2Cells = document.querySelectorAll('.grid2 > .cell')
     for (let l = 0; l < letterArray.length; l += 1 ) {
       let thisLetter = letterArray[l];
       for (let n = 0; n < 10; n += 1) {
-      const thisCell = cells[(l * 10) + n];
-      const value = p2.gameboard[thisLetter][n];
+        const value = p2.gameboard[thisLetter][n];
+      const thisCell = p2Cells[(l * 10) + n];
       if (value === 'hit') {
-        thisCell.classList = 'cell hit';
+        thisCell.classList = ' cell hit';
       } else if (value === 'miss') {
-          thisCell.classList = 'cell miss';
+          thisCell.classList = ' cell miss';
       }
     }
   }
 }
 
+export function attackQuerySelectors(cellList, p1, p2) {
+  for (let i = 0; i < cellList.length; i += 1) {
+    let currentCell = cellList[i];
+    
+    currentCell.addEventListener('click', () => {
+      if (i < 10) {
+        p1.attack('a', i + 1);
+      } else if (i < 20 ) {
+        p1.attack('b', i - 10 + 1);
+      } else if (i < 30) {
+        p1.attack('c', i - 20 + 1);
+      } else if (i < 40) {
+        p1.attack('d', i - 30 + 1);
+      } else if (i < 50) {
+        p1.attack('e', i - 40 + 1);
+      } else if (i < 60) {
+        p1.attack('f', i - 50 + 1);
+      } else if (i < 70) {
+        p1.attack('g', i - 60 + 1);
+      } else if (i < 80) {
+        p1.attack('h', i -70 + 1);
+      } else if (i < 90) {
+        p1.attack('i', i -80 + 1);
+      } else if (i < 100) {
+        p1.attack('j', i -90 + 1);
+      }
+      updateDomBoard(p1, p2)
+    });
+  }
+}
