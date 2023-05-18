@@ -98,7 +98,8 @@ export function updateDomBoard(p1,p2) {
   }
 }
 
-export function attackQuerySelectors(cellList, p1, p2) {
+export function attackQuerySelectors(p1, p2) {
+  const cellList = document.querySelectorAll('.grid2 > .cell');
   for (let i = 0; i < cellList.length; i += 1) {
     let currentCell = cellList[i];
     
