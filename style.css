@@ -9,15 +9,14 @@ body {
   color: #f0f9ff;
 }
 
-h1 {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 5vw;
+header {
+  display: grid;
+  justify-items: center;
+  gap: 2vw;
 }
 
-.winner-message {
-  display: flex;
-  justify-content: center;
+button {
+  width: 5rem;
 }
 
 .cell {
