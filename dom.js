@@ -9,6 +9,9 @@ export function createRowCells(dom, array, row) {
 
 export function displayP1Board(board) {
   const main = document.querySelector('main')
+  if (document.querySelector('.board1')) {
+    main.removeChild(document.querySelector('.board1'))
+  }
   const board1 = document.createElement('div');
   board1.classList = 'board1';
   displayColNums(board1);
@@ -27,7 +30,10 @@ export function displayP1Board(board) {
 }
 
 export function displayCompBoard(board) {  
-  const main = document.querySelector('main'); 
+  const main = document.querySelector('main');
+  if (document.querySelector('.board2')) {
+    main.removeChild(document.querySelector('.board2'))
+  }
   const board2 = document.createElement('div');
   board2.classList = 'board2';
   const compGrid = document.createElement('div');
