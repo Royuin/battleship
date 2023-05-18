@@ -1,4 +1,4 @@
-import { displayCompBoard, displayP1Board, updateDomBoard, attackQuerySelectors } from "./dom.js";
+import { displayCompBoard, displayP1Board, updateDomBoard, attackQuerySelectors, showWinner } from "./dom.js";
 
 export function shipFactory(length) {
   return {
@@ -113,9 +113,9 @@ export function gameboardFactory() {
     receiveAttack: function(x, y, p2Attack) {
       if (this.ships.every(ship => ship.sunk === true)) {
         if (p2Attack) {
-          console.log('YOU WIN!')
+          showWinner(p1);
         } else {
-          console.log('YOU LOSE!')
+          showWinner(p2);
         }
         return
       } else if (this[x][y - 1] === undefined) {
@@ -183,3 +183,8 @@ p2.gameboard.fillBoard();
 
 displayP1Board(p1Board);
 displayCompBoard(p2Board);
+updateDomBoard(p1, p2);
+
+const computerBoard = document.querySelectorAll('.grid2 > .cell');
+
+attackQuerySelectors(computerBoard, p1, p2);
