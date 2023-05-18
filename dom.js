@@ -128,3 +128,12 @@ export function attackQuerySelectors(cellList, p1, p2) {
     });
   }
 }
+
+export function showWinner(player) {
+  const winnerMessage = document.querySelector('.winner-message')
+  if (player.name === 'player') {
+    winnerMessage.textContent = 'YOU WIN!';
+  } else if (player.name === 'computer') {
+    winnerMessage.textContent = 'YOU LOSE!';
+  }
+}
