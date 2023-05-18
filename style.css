@@ -9,6 +9,17 @@ body {
   color: #f0f9ff;
 }
 
+h1 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5vw;
+}
+
+.winner-message {
+  display: flex;
+  justify-content: center;
+}
+
 .cell {
   width: 40px;
   height: 40px;
