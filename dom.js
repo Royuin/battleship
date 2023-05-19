@@ -211,11 +211,14 @@ export function startListener(p1, p2,) {
   const startListener = document.querySelector('.start-button');
 
   startListener.addEventListener('click', () => {
-    p1.gameboard.fillBoard();
-    p2.gameboard.fillBoard();
+    if (p1.gameboard.ships.length < 10) {
+      return console.log('You need to add your ships first!');
+    } else {
+      p2.gameboard.fillBoard();
     displayP1Board(p1.gameboard);
     displayCompBoard(p2.gameboard);
     updateDomBoard(p1,p2);
     attackQuerySelectors(p1, p2);
+    }
   })
 }
