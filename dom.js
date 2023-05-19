@@ -138,3 +138,84 @@ export function showWinner(player) {
     winnerMessage.textContent = 'YOU LOSE!';
   }
 }
+
+export function addShipListeners(p1, p2) {
+  const cellList = document.querySelectorAll('.grid1 > .cell');
+
+  for (let i = 0; i < cellList.length; i += 1) {
+    let currentCell = cellList[i];
+
+    let newShipLength
+
+    currentCell.addEventListener('mouseenter', () => {
+      if (p1.gameboard.ships.length === 0) {
+        newShipLength = 4
+      }  else if (p1.gameboard.ships.length > 0 && p1.gameboard.ships.length < 3 ) {
+        newShipLength = 3      
+      } else if (p1.gameboard.ships.length > 2 && p1.gameboard.ships.length < 5 ) {
+        newShipLength = 2;
+      }  else if (p1.gameboard.ships.length > 5 && p1.gameboard.ships.length < 10) {
+        newShipLength = 1;
+      } else if (p1.gameboard.ships.length >= 10) {
+        return;
+      }
+    
+      let thisCellList = [currentCell,];
+      for (let n = 1; n < newShipLength; n +=1) {
+        if (i + n >= 100) {
+          return;
+        } else {
+        thisCellList.push(cellList[i + n]);
+        }
+      }   
+      
+      thisCellList.forEach(cell => {
+        cell.classList.add('hovered')
+      });
+
+      currentCell.addEventListener('mouseleave', () => {
+       thisCellList.forEach(cell => {
+        cell.classList.remove('hovered');
+       }) 
+      })
+    })
+
+    currentCell.addEventListener('click', () => {
+      if (i < 10) {
+        p1.gameboard.addShip('a', i + 1);
+      } else if (i < 20 ) {
+        p1.gameboard.addShip('b', i - 10 + 1);
+      } else if (i < 30) {
+        p1.gameboard.addShip('c', i - 20 + 1);
+      } else if (i < 40) {
+        p1.gameboard.addShip('d', i - 30 + 1);
+      } else if (i < 50) {
+        p1.gameboard.addShip('e', i - 40 + 1);
+      } else if (i < 60) {
+        p1.gameboard.addShip('f', i - 50 + 1);
+      } else if (i < 70) {
+        p1.gameboard.addShip('g', i - 60 + 1);
+      } else if (i < 80) {
+        p1.gameboard.addShip('h', i -70 + 1);
+      } else if (i < 90) {
+        p1.gameboard.addShip('i', i -80 + 1);
+      } else if (i < 100) {
+        p1.gameboard.addShip('j', i -90 + 1);
+      } 
+      updateDomBoard(p1, p2)
+    }); 
+  }
+}
+
+export function startListener(p1, p2,) {
+  const startListener = document.querySelector('.start-button');
+
+  startListener.addEventListener('click', () => {
+    p1.gameboard.fillBoard();
+    p2.gameboard.fillBoard();
+    displayP1Board(p1.gameboard);
+    displayCompBoard(p2.gameboard);
+    updateDomBoard(p1,p2);
+    attackQuerySelectors(p1, p2);
+  })
+}
