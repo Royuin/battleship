@@ -6,16 +6,17 @@
   "scripts": {
     "test": "jest",
     "jest": "testEnvironment"
-  
   },
   "author": "Royuin",
   "license": "ISC",
   "keywords": [],
   "devDependencies": {
     "@babel/preset-env": "^7.21.5",
-    "jest": "^29.5.0"
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0"
   },
-  "type": "module"
-
-  
+  "type": "module",
+  "jest": {
+    "testEnvironment": "jsdom"
+  }
 }
