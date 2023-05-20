@@ -1,7 +1,7 @@
 export function createRowCells(dom, array, row) {
   for (let i = 0; i < array.length; i += 1) {
     const cell = document.createElement('div');
-    cell.classList = 'cell';
+    cell.classList = 'cell hover';
     dom.appendChild(cell);
   }
 }
@@ -130,13 +130,15 @@ export function attackQuerySelectors(p1, p2) {
   }
 }
 
-export function showWinner(player) {
+export function updateWinner(player) {
   const winnerMessage = document.querySelector('.winner-message')
-  if (player.name === 'player') {
+  if (!player) {
+    winnerMessage.textContent = '';
+  } else if (player.name === 'player') {
     winnerMessage.textContent = 'YOU WIN!';
   } else if (player.name === 'computer') {
     winnerMessage.textContent = 'YOU LOSE!';
-  }
+  } 
 }
 
 export function addShipListeners(p1, p2) {
@@ -207,18 +209,3 @@ export function addShipListeners(p1, p2) {
   }
 }
 
-export function startListener(p1, p2,) {
-  const startListener = document.querySelector('.start-button');
-
-  startListener.addEventListener('click', () => {
-    if (p1.gameboard.ships.length < 10) {
-      return console.log('You need to add your ships first!');
-    } else {
-      p2.gameboard.fillBoard();
-    displayP1Board(p1.gameboard);
-    displayCompBoard(p2.gameboard);
-    updateDomBoard(p1,p2);
-    attackQuerySelectors(p1, p2);
-    }
-  })
-}
