@@ -1,4 +1,4 @@
-import { displayCompBoard, displayP1Board, updateDomBoard, attackQuerySelectors, showWinner } from "./dom.js";
+import { displayCompBoard, displayP1Board, updateDomBoard, attackQuerySelectors, updateWinner, addShipListeners } from "./dom.js";
 
 export function shipFactory(length) {
   return {
@@ -58,9 +58,9 @@ export function gameboardFactory() {
         newShip = shipFactory(4)
       }  else if (this.ships.length > 0 && this.ships.length < 3 ) {
         newShip = shipFactory(3)      
-      } else if (this.ships.length > 2 && this.ships.length < 6 ) {
+      } else if (this.ships.length > 2 && this.ships.length < 5 ) {
         newShip = shipFactory(2);
-      }  else if (this.ships.length > 6 && this.ships.length < 10) {
+      }  else if (this.ships.length > 5 && this.ships.length < 10) {
         newShip = shipFactory(1);
       } else if (this.ships.length >= 10) {
         throw new Error("You're out of ships soldier");
@@ -113,9 +113,11 @@ export function gameboardFactory() {
     receiveAttack: function(x, y, p2Attack) {
       if (this.ships.every(ship => ship.sunk === true)) {
         if (p2Attack) {
-          showWinner(p1);
+          gameOver = true;
+          updateWinner(p1);
         } else {
-          showWinner(p2);
+          updateWinner(p2);
+          gameOver = true;
         }
         return
       } else if (this[x][y - 1] === undefined) {
@@ -173,18 +175,34 @@ export function playerFactory(name) {
 
 export const main = document.querySelector('main');
 
-const p1 = playerFactory('player');
+let p1 = playerFactory('player');
 let p1Board = p1.gameboard;
-const p2 = playerFactory('computer')
+let p2 = playerFactory('computer')
 let p2Board = p2.gameboard;
-
-p1.gameboard.fillBoard();
-p2.gameboard.fillBoard();
+let gameOver = false;
 
 displayP1Board(p1Board);
 displayCompBoard(p2Board);
-updateDomBoard(p1, p2);
+addShipListeners(p1, p2);
 
-const computerBoard = document.querySelectorAll('.grid2 > .cell');
+const startListener = document.querySelector('.start-button');
 
-attackQuerySelectors(computerBoard, p1, p2);
+startListener.addEventListener('click', () => {
+  if (p1.gameboard.ships.length < 10) {
+    return alert('You need to add your ships first!');
+  } else if (gameOver) { 
+    p1 = playerFactory('player'); 
+    p2 = playerFactory('computer');
+    displayP1Board(p1.gameboard);
+    displayCompBoard(p2.gameboard);
+    addShipListeners(p1,p2);
+    gameOver = false;
+    updateWinner();
+  } else {
+    p2.gameboard.fillBoard();
+  displayP1Board(p1.gameboard);
+  displayCompBoard(p2.gameboard);
+  updateDomBoard(p1,p2);
+  attackQuerySelectors(p1, p2);
+  }
+})
