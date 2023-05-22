@@ -1,4 +1,4 @@
-import { displayCompBoard, displayP1Board, updateDomBoard, attackQuerySelectors, updateWinner, addShipListeners } from "./dom.js";
+import { displayCompBoard, displayP1Board, updateDomBoard, attackQuerySelectors, updateWinner, addShipListeners, addShipListenersHorizontal } from "./dom.js";
 
 export function shipFactory(length) {
   return {
@@ -66,18 +66,18 @@ export function gameboardFactory() {
         throw new Error("You're out of ships soldier");
       }
       
-      if (!horizontal && y + newShip.length > 10) {
+      if (!horizontal && y - 1 + newShip.length > 10) {
        return new Error('Invalid Coordinates Soldier!');
       } else if (horizontal && this.row.indexOf(x) + newShip.length > 10) {
         return new Error('Invalid Coordinates Soldier!');
       }
 
       if (newShip.length === 1) {
-        if (this[x][y -1] !== undefined) {
+        if (this[x][y - 1] !== undefined) {
           return new Error('Coordinates already attacked!');
         }
         else {
-         this[x][y -1] = newShip;
+         this[x][y - 1] = newShip;
          this.ships.push(newShip);
         }
       } else if (!horizontal) {
@@ -186,6 +186,7 @@ displayCompBoard(p2Board);
 addShipListeners(p1, p2);
 
 const startListener = document.querySelector('.start-button');
+const axisBtn = document.querySelector('.axis-button');
 
 startListener.addEventListener('click', () => {
   if (p1.gameboard.ships.length < 10) {
@@ -204,5 +205,21 @@ startListener.addEventListener('click', () => {
   displayCompBoard(p2.gameboard);
   updateDomBoard(p1,p2);
   attackQuerySelectors(p1, p2);
+  }
+})
+
+axisBtn.addEventListener('click', () => {
+  if (p1.gameboard.ships.length ===  10) {
+    return;
+  }
+  displayP1Board(p1Board);
+  displayCompBoard(p2Board);
+  updateDomBoard(p1,p2);
+  if (axisBtn.textContent === 'Axis: Y') {
+    addShipListenersHorizontal(p1, p2); 
+    axisBtn.textContent = 'Axis: X';
+  } else if (axisBtn.textContent === 'Axis: X') {
+    addShipListeners(p1,p2);
+    axisBtn.textContent = 'Axis: Y';
   }
 })
