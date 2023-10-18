@@ -15,4 +15,3 @@ This project was made after learning about Test Driven Development (TDD) and Uni
 - seperate addship event listeners
 - fix test not working when dom functions called
 - create resuable function to test if all ships of a player have been sunk
-- dont allow ships to be added on top of other ships
